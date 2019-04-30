@@ -1,0 +1,20 @@
+# 1st column type, 2nd column mass. Ignores 1st line, reads SizeFG lines (set in params.in). support till type # 100
+ 3 12.011000 # CNAFG
+ 4 12.011000 # COFG
+ 9 13.019000 # CSAFG
+ 10 14.027000 # CSFG
+ 12 12.011000 # CTAFG
+ 13 13.019000 # CTFG
+ 14 1.008000 # HNFG
+ 15 14.007000 # NSFG
+ 16 14.007000 # NTFG
+ 17 15.999000 # OCFG
+
+
+
+
+
+
+
+
+

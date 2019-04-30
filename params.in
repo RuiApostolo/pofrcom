@@ -1,0 +1,17 @@
+# Be careful of ammount of spaces (min col 12). Put complete lammpstrj file name on next row. Carereful if CTFG changes numbers mid - simulation
+dump.polymer.lammpstrj
+5           Row
+5001        StepMax
+2501        IgnoreFirst
+5896        MolSize
+64          NumFGs
+10          NumtypesFG ! Number of different atoms in FGs
+13          SizeFG
+13          CTFG
+105.0       BoxLength
+0           SolventNum(not_implemented_yet)
+0.2         SizeBin
+0.0         Lowestbin
+1000        NumBins
+t           also calculate 2D p(r)? T or F
+~                                       
