@@ -1,5 +1,5 @@
 
-program RDFcom
+program pofrcom
 ! From the group of Prof. Philip Camp
 ! subroutines by Rui Apóstolo in 2017 & 2018
 ! University of Edinburgh
@@ -14,12 +14,16 @@ include 'variables.inc'
 
 
 debug = .false.
-if (debug .eqv. .true.) open(unit=93, file='debug.log', action='write', status='replace')
+if (debug .eqv. .true.) then
+  open(unit=93, file='debug.log', action='write', status='replace')
+  write(6,*) "DEBUG MORE ON - CHECK DEBUG.LOG"
+end if
 
 ! New clock start
 ! going to ignore the array, it gives user and system time in seconds, in this order.
 call ETIME(tarray, beg_cpu_time)
 cpu_time_last = 0.0_dp
+
 
 open(unit=70, file='params.in', action='read', status='old')
 read(70,*)
@@ -73,13 +77,13 @@ else if (StepMax < 1001) then
   write(6,*) StepMax," steps is an unusually low number for StepMax, make sure it's correct."
   write(6,*) "Do you wish to continue anyway? (y/N)"
   read(5,*)  checkrow
-  call userexit(checkrow)
+  ! call userexit(checkrow)
 end if
 if (StepMax-IgnoreFirst > 19999) then
   write(6,*) StepMax-IgnoreFirst," steps is an unusually high number of steps, make sure it's correct."
   write(6,*) "Do you wish to continue anyway? (y/N)"
   read(5,*)  checkrow
-  call userexit(checkrow)
+  ! call userexit(checkrow)
 end if
 if (StepMax-IgnoreFirst < 1) then
   write(6,*)      "StepMax - IgnoreFirst  must be an integer bigger than 0."
@@ -88,7 +92,7 @@ else if (StepMax-IgnoreFirst < 4999) then
   write(6,*) StepMax-IgnoreFirst," steps is an unusually low number of steps, make sure it's correct."
   write(6,*) "Do you wish to continue anyway? (y/N)"
   read(5,*)  checkrow
-  call userexit(checkrow)
+  ! call userexit(checkrow)
 else if (IgnoreFirst < 0) then
   write(6,*)      "'IgnoreFirst' line in params.in must be an integer bigger than or equal to 0."
   call EXIT(65)
@@ -100,12 +104,12 @@ else if (MolSize < 101) then
   write(6,*) MolSize," atoms is an unusually low number for MolSize, make sure it's correct."
   write(6,*) "Do you wish to continue anyway? (y/N)"
   read(5,*)  checkrow
-  call userexit(checkrow)
+  ! call userexit(checkrow)
 else if (MolSize > 1999) then
   write(6,*) MolSize," atoms is an unusually high number for MolSize, make sure it's correct."
   write(6,*) "Do you wish to continue anyway? (y/N)"
   read(5,*)  checkrow
-  call userexit(checkrow)
+  ! call userexit(checkrow)
 end if
 if (NumFGs < 1) then
   write(6,*)      "'NumFGs' line in params.in must be an integer bigger than 0."
@@ -114,7 +118,7 @@ else if (NumFGs > 20) then
   write(6,*) NumFGs," FGs is an unusually high number for NumFGs, make sure it's correct."
   write(6,*) "Do you wish to continue anyway? (y/N)"
   read(5,*)  checkrow
-  call userexit(checkrow)
+  ! call userexit(checkrow)
 end if
 if (NumTypesFG < 1) then
   write(6,*)      "'NumTypesFG' line in params.in must be an integer bigger than 0."
@@ -123,7 +127,7 @@ else if (NumTypesFG > 20) then
   write(6,*) NumTypesFG," Types of atoms in the FGs is an unusually high number for NumTypesFG, make sure it's correct."
   write(6,*) "Do you wish to continue anyway? (y/N)"
   read(5,*)  checkrow
-  call userexit(checkrow)
+  ! call userexit(checkrow)
 end if
 if (SizeFG < 1) then
   write(6,*)      "'SizeFG' line in params.in must be an integer bigger than 0."
@@ -135,7 +139,7 @@ else if (SizeFG > 40) then
   write(6,*) SizeFG," atoms in the FGs is an unusually high number for SizeFG, make sure it's correct."
   write(6,*) "Do you wish to continue anyway? (y/N)"
   read(5,*)  checkrow
-  call userexit(checkrow)
+  ! call userexit(checkrow)
 end if
 if (CTFG < 1) then
   write(6,*)      "'CTFG' line in params.in must be an integer bigger than 0."
@@ -148,12 +152,12 @@ else if (BoxLength < 50.0) then
   write(6,*) BoxLength," angstrom is an unusually small size for BoxLength, make sure it's correct."
   write(6,*) "Do you wish to continue anyway? (y/N)"
   read(5,*)  checkrow
-  call userexit(checkrow)
+  ! call userexit(checkrow)
 else if (BoxLength > 200.0) then
   write(6,*) BoxLength," angstrom is an unusually large size for BoxLength, make sure it's correct."
   write(6,*) "Do you wish to continue anyway? (y/N)"
   read(5,*)  checkrow
-  call userexit(checkrow)
+  ! call userexit(checkrow)
 end if
 ! if (solvent_num < 1) then
   ! write(6,*)      "'solvent_num' line in params.in must be an integer bigger than 0"
@@ -166,7 +170,7 @@ else if (SizeBins > 1.0) then
   write(6,*) SizeBins," as a bin size might make you loose resolution, make sure it's correct."
   write(6,*) "Do you wish to continue anyway? (y/N)"
   read(5,*)  checkrow
-  call userexit(checkrow)
+  ! call userexit(checkrow)
 end if
 if (LowBin < 0.0) then
   write(6,*)      "'LowBin' line in params.in must be a decimal bigger than or equal to 0.0."
@@ -175,7 +179,7 @@ else if (LowBin > 0.0) then
   write(6,*) LowBin," as the lowest bin might make you lose the closest FGcoms, make sure it's correct."
   write(6,*) "Do you wish to continue anyway? (y/N)"
   read(5,*)  checkrow
-  call userexit(checkrow)
+  ! call userexit(checkrow)
 end if
 if (NumBins < 1) then
   write(6,*)      "'NumBins' line in params.in must be an integer bigger than 0."
@@ -184,12 +188,12 @@ else if (NumBins < 100) then
   write(6,*) NumBins," bins is an unusually low number for NumBins, make sure it's correct."
   write(6,*) "Do you wish to continue anyway? (y/N)"
   read(5,*)  checkrow
-  call userexit(checkrow)
+  ! call userexit(checkrow)
 else if (NumBins > 2999) then
   write(6,*) NumBins," bins is an unusually high number for NumBins, make sure it's correct."
   write(6,*) "Do you wish to continue anyway? (y/N)"
   read(5,*)  checkrow
-  call userexit(checkrow)
+  ! call userexit(checkrow)
 end if
 
 
@@ -252,7 +256,9 @@ close(71)
 
 open(unit=72, file=inputfile, action='read', status='old')
 open(unit=81, file='3d_pr_fgcom.out', action='write', status='new')
+! open(unit=91, file='averaged_3d_pr_fgcom.dat', action='write', status='new')
 if (calc2dpr .eqv. .true.) open(unit=82, file='2d_pr_fgcom.out', action='write', status='new')
+! if (calc2dpr .eqv. .true.) open(unit=92, file='averaged_2d_pr_fgcom.dat', action='write', status='new')
 
 
 ! initialise NumBins
@@ -336,6 +342,8 @@ outerloop: do i=IgnoreFirst+1,StepMax
       if (calc2dpr .eqv. .true.) then
         ! call prcalc2
         results2d = prcalc2d(FGcoms,NumBins,SizeBins,BoxLength)
+        if (debug .eqv. .true.) write(93,*) "after prcalc2d 3D",(results2d(k,1),k=1,NumBins)
+        if (debug .eqv. .true.) write(93,*) "after prcalc2d 2D",(results2d(k,2),k=1,NumBins)
         ! write 3d results
         write(81,*) (results2d(k,1),k=1,NumBins)
         ! write 2d results
@@ -357,9 +365,9 @@ write(6,*) "Total Time: ", ADJUSTL(tempw)
 
 contains
 
-!********************************
-! Read vmd header - Rui Apóstolo
-!********************************
+  !*****************************!
+  ! Read headers - Julien Sindt !
+  !*****************************!
 
 subroutine readheader
 implicit none
@@ -368,6 +376,28 @@ do i=1,9
   read(72,*)
 end do
 end subroutine readheader
+
+
+
+  ! subroutine readheader
+  !   !Subroutine to read the box dimension at every subsequent timestep
+  !   read(inputf, '(A)') headertext(1) ! ITEM: TIMESTEP
+  !   read(inputf,*) timestep(Nstep)
+  !   read(inputf, '(A)') headertext(2) ! ITEM: NUMBER OF ATOMS
+  !   read(inputf,*) Natom
+  !   read(inputf, '(A)') headertext(3) ! ITEM: BOX BOUNDS pp pp pp
+  !   read(inputf,*) Volume(1,1), Volume(1,2) ! Xmin and Xmax
+  !   Lx = Volume(1,2) - Volume(1,1)
+  !   Hx = Lx/2
+  !   read(inputf,*) Volume(2,1), Volume(2,2) ! Ymin and Ymax
+  !   Ly = Volume(2,2) - Volume(2,1)
+  !   Hy = Ly/2
+  !   read(inputf,*) Volume(3,1), Volume(3,2) ! Zmin and Zmax
+  !   Lz = Volume(3,2) - Volume(3,1)
+  !   Hz = Lz/2
+  !   read(inputf, '(A)') headertext(4) ! ITEM: ATOMS id type x y z
+  !  end subroutine readheader
+
 
 
 !**************************************
@@ -515,4 +545,4 @@ subroutine systemexit(error)
 end subroutine systemexit
 
 
-end program RDFcom
+end program pofrcom

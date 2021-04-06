@@ -28,7 +28,7 @@ BUILD_DIR=./
 
 # Executable
 
- EXE=    pr_com
+ EXE=    pofrcom
 
 
 ######################################################
@@ -99,7 +99,7 @@ F77SRC=
 
 #Fortran 90 source files
 F08SRC= \
-        RDF_com.f08
+        pofrcom.f08
 
 
 #######################################################
@@ -148,5 +148,5 @@ clean:
 # modules.
 #
 ######################################################
-# RDF_com.o: modules.o 
+# pofrcom.o: modules.o 
 

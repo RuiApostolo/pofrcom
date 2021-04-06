@@ -14,4 +14,4 @@ dump.polymer.lammpstrj
 0.0         Lowestbin
 1000        NumBins
 t           also calculate 2D p(r)? T or F
-~                                       
+                                       
